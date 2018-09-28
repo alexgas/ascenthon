@@ -1,0 +1,24 @@
+img {
+    width: 70px;
+    height: 70px;
+}
+.right {
+    width: 50%;
+}
+.left {
+    width: 50%;
+}
+.navbar {
+    height: 10%;
+    width: 100%;
+    background: rgba(113, 107, 119, 0.7);
+    margin-bottom: 20px;
+}
+.container-buttons {
+    display: flex;
+    flex-direction: column;
+}
+.container-buttons button {
+    height: 70px;
+    width: 70px;
+}
