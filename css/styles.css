@@ -67,6 +67,11 @@ img {
     flex-direction: row-reverse;
     align-items: center;
 }
+.separator {
+    margin-right: 25%;
+    height: 100%;
+    border: 1px solid;
+}
 .screen {
     background: black;
     border: 6px solid greenyellow;
