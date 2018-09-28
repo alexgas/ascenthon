@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Elevator face capture system</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.1/cropper.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
     <script  type="text/javascript" src="js/opencv.js"></script>
     <script type="text/javascript" src="js/reconocimiento.js"></script>
     <script src="js/javascript.js"></script>
@@ -18,8 +20,8 @@
 
     <div class="container">
         <div class="left">
-            <button id="toggleCapture">Empezar captura</button>
-            <video id="videoInput" width="320" height="240" style="border: 1px"></video>
+
+            <video id="videoInput" width="320" height="240" style="border: 1px solid; border-color: black;"></video>
             <canvas id="canvasOutput" width="320" height="240" style="border: 1px"></canvas>
         </div>
 
