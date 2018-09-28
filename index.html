@@ -5,41 +5,35 @@
     <meta charset="UTF-8">
     <title>Elevator face capture system</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script  type="text/javascript" src="js/opencv.js"></script>
+    <script type="text/javascript" src="js/reconocimiento.js"></script>
     <script src="js/javascript.js"></script>
 </head>
 <body>
 
     <div class="navbar">
-    <img src="img/logoNayar.jpeg">
+        <img src="img/logoNayar.jpeg">
     </div>
 
-    <div class="left">
-        <video id="videoInput" width="320" height="240"></video>
-        <canvas id="canvasOutput" width="320" height="240"></canvas>
-    </div>
-
-
-
-
-
-
-
-
-
-
-    <div class="right">
-        <div class="door" hidden>
-            <button id="button-open-door" class="button-door"></button>
+    <div class="container">
+        <div class="left">
+            <video id="videoInput" width="320" height="240"></video>
+            <canvas id="canvasOutput" width="320" height="240"></canvas>
         </div>
-        <div class="container-buttons">
-            <button class="button-lift">1</button>
-            <button class="button-lift">0</button>
-            <button id="button-close-door" class="button-close-door">>|<</button>
+
+        <div class="right">
+            <div class="door" hidden>
+                <button id="button-open-door" class="button-door"></button>
+            </div>
+            <div class="container-buttons">
+                <button class="button-lift">1</button>
+                <button class="button-lift">0</button>
+                <button id="button-close-door" class="button-close-door">>|<</button>
+            </div>
         </div>
+
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <script  type="text/javascript" src="js/opencv.js"></script>
-    <script type="text/javascript" src="js/reconocimiento.js"></script>
+
 
 </body>
 </html>
