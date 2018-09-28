@@ -4,7 +4,7 @@ $(document).ready(function(){
     $("#button-hide-door").click(function(){
         setTimeout(function(){
             $(".door").hide();
-        }, 2400);
+        }, 2200);
         $(".door").removeClass("door-left-to-rigth").addClass('door-right-to-left');
     });
     $("#button-show-door").click(function(){
