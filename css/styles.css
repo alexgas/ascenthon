@@ -28,6 +28,12 @@ img {
     -webkit-text-fill-color: lightsteelblue;
     align-items: center;
 }
+.navbar span {
+    font-size: larger;
+    font-style: italic;
+    margin-left: 5px;
+    margin-bottom: 6px;
+}
 .container-buttons {
     display: flex;
     flex-direction: column;
