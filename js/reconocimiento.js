@@ -1,6 +1,7 @@
 $( function (){
 
         let video = document.getElementById('videoInput');
+        $()
         let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
         let dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
         let cap = new cv.VideoCapture(video);
@@ -23,7 +24,7 @@ $( function (){
                 let delay = 1000/FPS - (Date.now() - begin);
                 setTimeout(processVideo, delay);
             } catch (err) {
-                utils.printError(err);
+                console.log('Error: ' + err);
             }
         };
 
