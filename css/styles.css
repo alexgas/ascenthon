@@ -40,7 +40,7 @@ img {
     border: 6px solid red;
 
 }
-.container-buttons .button-close-door {
+.container-buttons .button-show-door {
     font-size: 2rem;
     font-weight: bold;
 }
@@ -60,4 +60,32 @@ img {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
+}
+.door-left-to-rigth {
+    -webkit-animation-name: leftToRigth;
+    -moz-animation-name: leftToRigth;
+    -o-animation-name: leftToRigth;
+    animation-name: leftToRigth;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+.door-right-to-left {
+    -webkit-animation-name: rightToLeft;
+    -moz-animation-name: rightToLeft;
+    -o-animation-name: rightToLeft;
+    animation-name: rightToLeft;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+
+
+/*****************ANIMATIONS***************/
+
+@keyframes leftToRigth {
+    from {width: 0;}
+    to {width: 50%;}
+}
+@keyframes rightToLeft {
+    from {width: 50%;}
+    to {width: 0;}
 }
