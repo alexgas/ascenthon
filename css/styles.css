@@ -1,8 +1,12 @@
+body {
+    background: lightsteelblue;
+}
 img {
     width: 70px;
     height: 70px;
 }
 .right {
+    height: 100%;
     width: 50%;
 }
 .left {
@@ -13,6 +17,7 @@ img {
     width: 100%;
     background: rgba(113, 107, 119, 0.7);
     margin-bottom: 20px;
+    padding: 5px
 }
 .container-buttons {
     display: flex;
@@ -21,4 +26,29 @@ img {
 .container-buttons button {
     height: 70px;
     width: 70px;
+    margin-bottom: 10px;
+    font-size: 3rem;
+    border-radius: 50%;
+}
+.container-buttons .button-close-door {
+    height: 70px;
+    width: 70px;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    border-radius: 50%;
+    font-weight: bold;
+}
+.button-door {
+    height: 70px;
+    width: 70px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    background: orange;
+}
+.door {
+    display: block;
+    background: indianred;
+    position: absolute;
+    height: 100%;
+    width: 50%;
 }

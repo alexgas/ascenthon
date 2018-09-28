@@ -4,7 +4,8 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <meta charset="UTF-8">
     <title>Elevator face capture system</title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/javascript.js"></script>
 </head>
 <body>
 
@@ -27,9 +28,13 @@
 
 
     <div class="right">
+        <div class="door" hidden>
+            <button id="button-open-door" class="button-door"></button>
+        </div>
         <div class="container-buttons">
             <button class="button-lift">1</button>
             <button class="button-lift">0</button>
+            <button id="button-close-door" class="button-close-door">>|<</button>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
