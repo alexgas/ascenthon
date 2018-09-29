@@ -37,6 +37,7 @@ $( function (){
 
             const FPS = 30;
 
+
             try {
                 if (!streaming) {
                     // clean and stop.
@@ -93,8 +94,8 @@ $( function (){
                     faceImages.push(base64);
 
                     // schedule the next one.
-                    let delay = 1000 / FPS - (Date.now() - begin);
-                    setTimeout(processVideo, delay);
+                    //let delay = 1000 / FPS - (Date.now() - begin);
+                    setTimeout(processVideo, 100);
                 }
             } catch (err) {
                 console.dir('Error: ' + err);
@@ -102,16 +103,12 @@ $( function (){
 
     };
 
-    // schedule the first one.
-    //setTimeout(processVideo, 0);
-
 
     $('#button-hide-door').on('click', () => {
         streaming = !streaming;
-        console.log('imagenes: ' + JSON.stringify(faceImages));
-
         processVideo();
-
+        console.log(faceImages.length);
     });
+
 
 });
