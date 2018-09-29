@@ -58,14 +58,17 @@ $(document).ready(function(){
     });
 
     $(".container-buttons-left").click(function () {
+        // ABORTAR
+        pisos = {}
         abortarAccion = true;
         showDoor();
     });
 
     $("#bt0").click(function () {
-        let pisos = [{Piso:0}];
+        streaming = false;
+        pisos = [{Piso:0}];
         abortarAccion = false;
-        startAction(pisos);
+        //startAction(pisos);
     });
 
 
@@ -142,7 +145,7 @@ $(document).ready(function(){
                 pisoActual = piso;
                 setTimeout(function(){
                     showDoor();
-                }, 4000)
+                }, 6000)
             }, 4000);
 
            $(".flat-number")[0].innerHTML = piso;
@@ -166,7 +169,7 @@ $(document).ready(function(){
             data: {id:uniqueid, date:date, pisoActual:pisoActual, img:img64},
             success: function (data) {
                 console.log(data);
-                if(data.datos && data.datos[0].Piso !== pisoActual){
+                if(streaming && data.datos && data.datos[0].Piso !== pisoActual){
                     pisos = data.datos;
 
                     pisos.forEach(function (row) {
