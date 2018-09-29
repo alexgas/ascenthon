@@ -31,18 +31,20 @@ $(document).ready(function(){
             }else{
                 $(".arrow-up").hide();
             }
-            pisoActual = piso;
             console.log(piso);
             setTimeout(function () {
                 $("#button-hide-door").trigger('click');
                 $(".arrow-down").show();
                 $(".arrow-up").show();
                 $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Apagado.png');
+                $("#bt"+pisoActual).children().first().attr('src', 'img/Num'+piso+'.png');
+                pisoActual = piso;
             }, 4000);
 
            $(".flat-number")[0].innerHTML = piso;
 
-        }, i*7000);
+
+        }, i*10000);
     }
 
     // Peticiones AJAX
@@ -54,10 +56,8 @@ $(document).ready(function(){
         var uniqid = Date.now();
 
         var xhttp;
-        if (str == "") {
-            document.getElementById("txtHint").innerHTML = "";
-            return;
-        }
+       // Validar variables
+
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
