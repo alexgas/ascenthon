@@ -103,9 +103,13 @@ $(document).ready(function(){
     }
 
     function moverPiso(pisos) {
-        pisos.forEach(function (row) {
-            setDelay(row.Piso, pisos.indexOf(row.Piso))
-        });
+
+        if (pisos.length > 0){
+
+            pisos.forEach(function (row) {
+                setDelay(row.Piso, pisos.indexOf(row.Piso))
+            });
+        }
     };
     function setDelay(piso, i) {
 
