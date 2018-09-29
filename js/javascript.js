@@ -130,9 +130,14 @@ $(document).ready(function(){
                 $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Encendido.png');
                 $("#bt"+pisoActual).children().first().attr('src', 'img/Num'+pisoActual+'.png');
                 pisoActual = piso;
+                setTimeout(function(){
+                    showDoor();
+                }, 2000)
             }, 4000);
 
            $(".flat-number")[0].innerHTML = piso;
+
+
 
         }, i*10000);
     }
@@ -169,8 +174,6 @@ $(document).ready(function(){
 
 
     function processVideo() {
-
-
 
 
         let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
