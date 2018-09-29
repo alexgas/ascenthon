@@ -89,7 +89,7 @@ $(document).ready(function(){
     var xhttp = new XMLHttpRequest();
     var pisoActual = 0;
 
-    function create_new_event(img64) {
+    function createNewEvent(img64) {
         var xhttp;
 
         //Generar id petición
