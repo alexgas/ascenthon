@@ -50,18 +50,23 @@ $(document).ready(function(){
 
         hideDoor();
     });
+
     $("#button-show-door").click(function(){
         showDoor();
     });
 
     $(".container-buttons-left").click(function () {
+        // ABORTAR
+        pisos = [];
         abortarAccion = true;
+        showDoor();
     });
 
     $("#bt0").click(function () {
-        let pisos = [{Piso:0}];
+        streaming = false;
+        pisos = [{Piso:0}];
         abortarAccion = false;
-        startAction(pisos);
+        //startAction(pisos);
     });
 
 
@@ -74,7 +79,7 @@ $(document).ready(function(){
 
     function startAction() {
 
-        startCounter(4);
+        startCounter(7);
         setTimeout(function(){
             if(!abortarAccion){
                 moverPiso(pisos);
@@ -83,7 +88,7 @@ $(document).ready(function(){
                     $("#bt"+row.Piso).find('.parpadea').remove();
                 });
             }
-        }, 4000);
+        }, 11000);
     }
 
     function startCounter(counter){
@@ -137,7 +142,7 @@ $(document).ready(function(){
                 pisoActual = piso;
                 setTimeout(function(){
                     showDoor();
-                }, 4000)
+                }, 6000)
             }, 4000);
 
            $(".flat-number")[0].innerHTML = piso;
@@ -158,6 +163,7 @@ $(document).ready(function(){
             url: 'http://10.1.6.45:8085/hackv1/nuevoTrayecto',
             data: {id:uniqueid, date:date, pisoActual:pisoActual, img:img64},
             success: function (data) {
+
                 //console.log(data);
                 if(data.datos && data.datos[0]){
 
