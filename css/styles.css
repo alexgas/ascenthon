@@ -148,7 +148,7 @@ body {
 }
 
 
-#videoInput, #canvasOutputNoFaces {
+#videoInput, #canvasOutputNoFaces, #canvasOutput2 {
     visibility: hidden;
 }
 
