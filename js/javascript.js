@@ -125,10 +125,11 @@ $(document).ready(function(){
             // console.log(piso);
             $("#bt"+piso).find('.parpadea').remove();
             setTimeout(function () {
+                $('#audio-piso').attr('src', 'audio/Piso_'+piso +'.ogg').get(0).play();
+                
                 setTimeout(function () {
-                    $('#audio-piso').attr('src', 'audio/Piso_'+piso +'.ogg').get(0).play();
-                },1500);
-                hideDoor();
+                    hideDoor();                    
+                },2000);
                 $(".arrow-down").show();
                 $(".arrow-up").show();
                 $(".arrow-down").removeClass('parpadea');
