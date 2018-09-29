@@ -21,6 +21,10 @@
     <div class="container">
         <div class="left">
             <canvas id="canvasOutput" width="320" height="240" style="border: 1px"></canvas>
+
+            <div class="counter-container">
+                <div id="counter"></div>
+            </div>
         </div>
 
         <div class="right">
@@ -45,10 +49,7 @@
                     <div id="bt-2"><img src="img/Num-2.png"></div>
                 </div>
             </div>
-            <div class="counter-container">
-                <div id="counter"></div>
-                <button id="demo">START DEMO</button>
-            </div>
+            <button id="demo">START DEMO</button>
             <div class="screen">
                 <div class="arrow-up">▲</div>
                 <div class="flat-number">0</div>
@@ -60,5 +61,8 @@
     <canvas id="canvasOutput2" width="320" height="240"></canvas>
     <canvas id="canvasOutputNoFaces" width="320" height="240"></canvas>
     <video id="videoInput" width="320" height="240" ></video>
+    <audio src="audio/Puerta_Abriendo.ogg" id="audio-open"></audio>
+    <audio src="audio/Puerta_Cerrando.ogg" id="audio-close"></audio>
+    <audio src="audio/Piso_0.ogg" id="audio-piso"></audio>
 </body>
 </html>

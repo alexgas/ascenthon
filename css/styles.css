@@ -10,6 +10,9 @@ body {
     display: flex;
     flex-direction: row;
 }
+.counter-container {
+    font-size: 4rem;
+}
 .right {
     height: 80%;
     width: 50%;
