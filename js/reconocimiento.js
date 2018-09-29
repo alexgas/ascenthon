@@ -86,7 +86,7 @@ $( function (){
 
                     }*/
 
-                    cv.imshow('canvasOutput', dst);
+                    //cv.imshow('canvasOutput', dst);
 
                     let imagen = document.getElementById('canvasOutput');
                     let base64 = imagen.toDataURL();
@@ -109,6 +109,8 @@ $( function (){
         processVideo();
         console.log(faceImages.length);
     });
+
+
 
 
 });
