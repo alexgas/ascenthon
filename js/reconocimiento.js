@@ -1,6 +1,4 @@
-let $ = jQuery.noConflict();
-
-$( function (){
+$(document).ready(function(){
 
     let streaming = false;
     let video = document.getElementById('videoInput');
@@ -75,7 +73,6 @@ $( function (){
                         if(faces.size() > 0){
                             console.log('hay una cara!!!');
                             //console.log(base64);
-                            // createNewEvent(base64);
 
                             // dibujar rectangulos en caras.
                             for (let i = 0; i < faces.size(); ++i) {
@@ -101,10 +98,10 @@ $( function (){
                                     let cara = document.getElementById('canvasOutput2');
                                     let base64 = cara.toDataURL();
 
-                                    //let date = this.Date.now();
-                                    //let eventId = guidGenerator();
+                                    let date = this.Date.now();
+                                    let eventId = guidGenerator();
                                     //llamada a metodo que envia imagen al servidor
-                                    //createNewEvent(base64, eventId, date);
+                                    createNewEvent(base64, eventId, date);
 
                                     faceImages.push(base64);
                                     // source.delete();
