@@ -124,7 +124,9 @@ $(document).ready(function(){
                 $(".arrow-up").hide();
                 $(".arrow-down").addClass('parpadea');
             }
-            // console.log(piso);
+             console.log('piso destino: ' + piso);
+
+
             $("#bt"+piso).find('.parpadea').remove();
             setTimeout(function () {
                 $('#audio-piso').attr('src', 'audio/Piso_'+piso +'.ogg').get(0).play();
@@ -175,20 +177,20 @@ $(document).ready(function(){
 
                             if (row.Piso && JSON.stringify(row) === JSON.stringify(data.datos[k]) ) {
 
-                                console.log('Ya esta marcado este piso');
+                               // console.log('Ya esta marcado este piso');
                                 existPiso = true;
                             }
                         });
 
                         if (!existPiso){
 
-                            console.log('Nuevo piso a marcar');
+                            //console.log('Nuevo piso a marcar');
                             pisos.push(data.datos[k]);
                         }
 
                     }
 
-                    console.log('Pisos: '  + JSON.stringify(pisos));
+                   // console.log('Pisos: '  + JSON.stringify(pisos));
 
                     pisos.forEach(function (row) {
 
@@ -246,8 +248,6 @@ $(document).ready(function(){
                 $('.left').css('filter', 'contrast(100%)');
                 contador++;
 
-                console.log('cobtador: ' + contador);
-
                 if (contador <= 5){
 
                     let begin = Date.now();
@@ -263,7 +263,7 @@ $(document).ready(function(){
 
                     //si el vector de caras contiene alguna la enviamos al back
                     if(faces.size() > 0){
-                        console.log('hay una cara!!!');
+                       // console.log('hay una cara!!!');
                         if(!accionHecha){
                             startAction();
                             accionHecha = true;
@@ -310,7 +310,7 @@ $(document).ready(function(){
                     //let delay = 1000 / FPS - (Date.now() - begin);
 
                 }else{
-                    console.log('numero de caras: ' + faceImages.length);
+                    //console.log('numero de caras: ' + faceImages.length);
                     streaming = false;
                     contador = 0;
                 }
