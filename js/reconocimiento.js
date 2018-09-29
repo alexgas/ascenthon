@@ -44,41 +44,79 @@ $( function (){
                     gray.delete();
                     faces.delete();
                     faceImages = [];
+                    contador = 0;
+                    $('.left').css('filter', 'contrast(25%)');
                     return;
                 } else {
                     contador++;
-                    let begin = Date.now();
 
-                    cap.read(src);
-                    src.copyTo(dst);
-                    cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
+                    if (contador <= 5){
 
-                    cv.imshow('canvasOutputNoFaces', dst);
+                        let begin = Date.now();
 
-                    let imagen = document.getElementById('canvasOutputNoFaces');
-                    let base64 = imagen.toDataURL();
+                        cap.read(src);
+                        src.copyTo(dst);
+                        cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
 
-                    // detectar caras.
-                    classifier.detectMultiScale(gray, faces, 1.1, 3, 0);
+                        cv.imshow('canvasOutputNoFaces', dst);
 
-                    //si el vector de caras contiene alguna la enviamos al back
-                    if(faces.size() > 0){
-                        console.log('hay una cara!!!');
-                        //console.log(base64);
-                       // createNewEvent(base64);
+                        // detectar caras.
+                        classifier.detectMultiScale(gray, faces, 1.1, 3, 0);
+
+                        //si el vector de caras contiene alguna la enviamos al back
+                        if(faces.size() > 0){
+                            console.log('hay una cara!!!');
+                            //console.log(base64);
+                            // createNewEvent(base64);
+
+                            // dibujar rectangulos en caras.
+                            for (let i = 0; i < faces.size(); ++i) {
+                                let face = faces.get(i);
+                                let point1 = new cv.Point(face.x, face.y);
+                                let point2 = new cv.Point(face.x + face.width, face.y + face.height);
+                                cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
+                                //cv.imshow('canvasOutput', dst);
+                                //crop face
+                                let source = cv.imread('canvasOutputNoFaces');
+                                let dest = new cv.Mat();
+                                let rect = new cv.Rect(face.x, face.y, face.width, face.height);
+                                if (0 <= rect.x
+                                    && 0 <= rect.width
+                                    && rect.x + rect.width <= source.cols
+                                    && 0 <= rect.y
+                                    && 0 <= rect.height
+                                    && rect.y + rect.height <= source.rows) {
+                                    // box within the image plane
+                                    dest = source.roi(rect);
+                                    cv.imshow('canvasOutput2', dest);
+
+                                    let cara = document.getElementById('canvasOutput2');
+                                    let base64 = cara.toDataURL();
+
+                                    let date = this.Date.now();
+                                    let eventId = guidGenerator();
+
+                                    //llamada a metodo que envia imagen al servidor
+                                    createNewEvent(base64, eventId, date);
+
+                                    faceImages.push(base64);
+                                    // source.delete();
+                                    //dest.delete();
+                                }
+
+                            }
+
+                            cv.imshow('canvasOutput', dst);
+                            cv.imshow('canvasOutputNoFaces', dst);
+                        }
+                        //let delay = 1000 / FPS - (Date.now() - begin);
+                        setTimeout(processVideo, 500);
+
+                    }else{
+                        console.log('numero de caras: ' + faceImages.length);
+                        streaming = false;
                     }
 
-                    // dibujar rectangulos en caras.
-                    for (let i = 0; i < faces.size(); ++i) {
-                        let face = faces.get(i);
-                        let point1 = new cv.Point(face.x, face.y);
-                        let point2 = new cv.Point(face.x + face.width, face.y + face.height);
-                        cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
-                    }
-                    cv.imshow('canvasOutput', dst);
-
-                    //let delay = 1000 / FPS - (Date.now() - begin);
-                    setTimeout(processVideo, 100);
                 }
             } catch (err) {
                 console.dir('Error: ' + err);
@@ -89,9 +127,23 @@ $( function (){
 
     $('#button-hide-door').on('click', () => {
         streaming = !streaming;
-        console.log(faceImages.length);
-
         processVideo();
+
+    });
+
+
+    $('#buttonShowImages').on('click', () => {
+
+       for (let i in faceImages){
+           setTimeout(function(){
+
+               console.log('mostrando ' + i);
+
+               cv.imshow('canvasOutput2', faceImages[i]);
+
+           }, i*1000);
+
+       }
 
     });
 
