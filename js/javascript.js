@@ -18,13 +18,25 @@ $(document).ready(function(){
     });
 
     $("#demo").click(function(){
+        let pisos = [2,3];
+        startAction(pisos);
+    });
+
+    function startAction(pisos) {
+        pisos.forEach(function (piso) {
+            $("#bt"+piso).append('<img class="parpadea" style="position: absolute" src="img/Num' + piso + '%20Apagado.png">')
+        });
         startCounter(3);
         setTimeout(function(){
             if(!abortarAccion){
-                moverPiso();
+                moverPiso(pisos);
+            }else{
+                pisos.forEach(function (piso) {
+                    $("#bt"+piso).find('.parpadea').remove();
+                });
             }
         }, 3500);
-    });
+    }
 
     function startCounter(counter){
         if(counter > 0){
@@ -36,10 +48,9 @@ $(document).ready(function(){
         }
     }
 
-    function moverPiso() {
-        var pisos = [2,3];
+    function moverPiso(pisos) {
         pisos.forEach(function (piso) {
-            $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Apagado.png');
+            // $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Apagado.png');
             setDelay(piso, pisos.indexOf(piso))
         });
     };
@@ -49,14 +60,20 @@ $(document).ready(function(){
             $("#button-show-door").trigger('click');
             if(piso > pisoActual){
                 $(".arrow-down").hide();
+                $(".arrow-up").addClass('parpadea');
             }else{
                 $(".arrow-up").hide();
+                $(".arrow-down").addClass('parpadea');
             }
             // console.log(piso);
+            $("#bt"+piso).find('.parpadea').remove();
             setTimeout(function () {
                 $("#button-hide-door").trigger('click');
                 $(".arrow-down").show();
                 $(".arrow-up").show();
+                $(".arrow-down").removeClass('parpadea');
+                $(".arrow-up").removeClass('parpadea');
+
                 $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Encendido.png');
                 $("#bt"+pisoActual).children().first().attr('src', 'img/Num'+pisoActual+'.png');
                 pisoActual = piso;

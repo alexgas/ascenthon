@@ -49,9 +49,15 @@ body {
     display: flex;
     flex-direction: column;
 }
+.container-buttons-rigth div {
+    display: flex;
+}
 .container-buttons-left {
     display: flex;
     flex-direction: column;
+}
+.container-buttons-left div {
+    display: flex;
 }
 .container-buttons button {
     height: 90px;
@@ -86,6 +92,7 @@ body {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
+    z-index: 100;
 }
 .separator {
     margin-right: 25%;
@@ -122,6 +129,18 @@ body {
     animation-duration: 3s;
     animation-fill-mode: forwards;
 }
+.parpadea {
+
+    animation-name: parpadeo;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    -webkit-animation-name:parpadeo;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+}
 
 /*****************ANIMATIONS***************/
 
@@ -132,4 +151,22 @@ body {
 @keyframes rightToLeft {
     from {width: 50%;}
     to {width: 0;}
+}
+
+@-moz-keyframes parpadeo{
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes parpadeo {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes parpadeo {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
 }
