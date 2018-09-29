@@ -4,12 +4,14 @@ $(document).ready(function(){
 
     // Métodos jquery y animaciones
     function hideDoor(){
+        $('#audio-open').get(0).play();
         setTimeout(function(){
             $(".door").hide();
         }, 2200);
         $(".door").removeClass("door-left-to-rigth").addClass('door-right-to-left');
     };
     function showDoor() {
+        $('#audio-close').get(0).play();
         $(".door").removeClass('door-right-to-left').addClass("door-left-to-rigth");
         $(".door").show();
     }
@@ -20,8 +22,14 @@ $(document).ready(function(){
         showDoor();
     });
 
-    $(".container-buttons").click(function () {
+    $(".container-buttons-left").click(function () {
         abortarAccion = true;
+    });
+
+    $("#bt0").click(function () {
+        let pisos = [{Piso:0}];
+        abortarAccion = false;
+        startAction(pisos);
     });
 
 
@@ -81,6 +89,9 @@ $(document).ready(function(){
             // console.log(piso);
             $("#bt"+piso).find('.parpadea').remove();
             setTimeout(function () {
+                setTimeout(function () {
+                    $('#audio-piso').attr('src', 'audio/Piso_'+piso +'.ogg').get(0).play();
+                },1500);
                 hideDoor();
                 $(".arrow-down").show();
                 $(".arrow-up").show();
