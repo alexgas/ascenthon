@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var abortarAccion = false;
 
     // Métodos jquery y animaciones
     $("#button-hide-door").click(function(){
@@ -12,13 +13,33 @@ $(document).ready(function(){
         $(".door").show();
     });
 
-    $("#bt0").click(function(){
-        moverPiso();
+    $(".container-buttons").click(function () {
+        abortarAccion = true;
     });
+
+    $("#demo").click(function(){
+        startCounter(3);
+        setTimeout(function(){
+            if(!abortarAccion){
+                moverPiso();
+            }
+        }, 3500);
+    });
+
+    function startCounter(counter){
+        if(counter > 0){
+            setTimeout(function(){
+                $("#counter")[0].innerHTML = counter;
+                counter--;
+                startCounter(counter);
+            }, 1000);
+        }
+    }
 
     function moverPiso() {
         var pisos = [2,3];
         pisos.forEach(function (piso) {
+            $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Apagado.png');
             setDelay(piso, pisos.indexOf(piso))
         });
     };
@@ -31,13 +52,13 @@ $(document).ready(function(){
             }else{
                 $(".arrow-up").hide();
             }
-            console.log(piso);
+            // console.log(piso);
             setTimeout(function () {
                 $("#button-hide-door").trigger('click');
                 $(".arrow-down").show();
                 $(".arrow-up").show();
-                $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Apagado.png');
-                $("#bt"+pisoActual).children().first().attr('src', 'img/Num'+piso+'.png');
+                $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Encendido.png');
+                $("#bt"+pisoActual).children().first().attr('src', 'img/Num'+pisoActual+'.png');
                 pisoActual = piso;
             }, 4000);
 
@@ -63,7 +84,7 @@ $(document).ready(function(){
             if (this.readyState == 4 && this.status == 200) {
                 console.log(this.responseJSON.Lista_Destinos);
                 this.responseJSON.Lista_Destinos.forEach(function(i) {
-                    document.getElementById("bt"+i).removeClass('red').addClass('green');
+                    $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Apagado.png');
                     setTimeout(function(){
                         moverPiso(this.responseJSON.Lista_Destinos);
                     }, 2200);
