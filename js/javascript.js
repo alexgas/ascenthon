@@ -1,10 +1,10 @@
 $(document).ready(function(){
     let abortarAccion = false;
     let pisoActual = 0;
-
     let pisos = [];
-
     let accionHecha = false;
+    let viajes = 0;
+    let viajesRealizados = 0;
 
     let streaming = false;
     let video = document.getElementById('videoInput');
@@ -191,7 +191,7 @@ $(document).ready(function(){
                     console.log('Pisos: '  + JSON.stringify(pisos));
 
                     pisos.forEach(function (row) {
-                        $("#bt"+row.Piso).append('<img class="parpadea" style="position: absolute" src="img/Num' + row.Piso + '%20Apagado.png">')
+                        $("#bt"+row.Piso).append('<img class="parpadea" style="position: absolute" src="img/Num' + row.Piso + '%20Apagado.png">');
                     });
 
                 }
