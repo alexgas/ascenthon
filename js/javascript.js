@@ -156,7 +156,7 @@ $(document).ready(function(){
     }
 
     // Peticiones AJAX
-
+    
     function createNewEvent(img64, uniqueid, date) {
         var xhttp;
 
@@ -173,7 +173,10 @@ $(document).ready(function(){
                     pisos = data.datos;
 
                     pisos.forEach(function (row) {
-                        $("#bt"+row.Piso).append('<img class="parpadea" style="position: absolute" src="img/Num' + row.Piso + '%20Apagado.png">')
+                        if($("#bt"+row.Piso).find('.parpadea').length < 1){
+                            $("#bt"+row.Piso).append('<img class="parpadea" style="position: absolute" src="img/Num' + row.Piso + '%20Apagado.png">')
+                            
+                        }
                     });
 
                 }
