@@ -143,12 +143,15 @@ body {
 }
 
 
-#videoInput {
+#videoInput, #canvasOutputNoFaces {
+    visibility: hidden;
+}
 
+#canvasOutput {
     width: 95%;
     height: 70%;
-
 }
+
 
 /*****************ANIMATIONS***************/
 
