@@ -4,6 +4,8 @@ $(document).ready(function(){
 
     let pisos = [];
 
+    let accionHecha = false;
+
     let streaming = false;
     let video = document.getElementById('videoInput');
     let utils = new Utils('errorMessage'); //use utils class
@@ -45,11 +47,7 @@ $(document).ready(function(){
         processVideo();
     }
     $("#button-hide-door").click(function(){
-        var accionHecha = false;
-        if(!accionHecha){
-            startAction();
-            accionHecha = true;
-        };
+
         hideDoor();
     });
     $("#button-show-door").click(function(){
@@ -161,21 +159,24 @@ $(document).ready(function(){
             data: {id:uniqueid, date:date, pisoActual:pisoActual, img:img64},
             success: function (data) {
                 //console.log(data);
-                if(data.datos && data.datos[0].Piso && data.datos[0].Piso !== pisoActual){
-
-                    let existPiso = false;
+                if(data.datos && data.datos[0]){
 
                     for (let k in data.datos){
 
+                        let existPiso = false;
+
                         pisos.forEach(function (piso) {
-                            if (JSON.stringify(pisos[piso]) === JSON.stringify(data.datos[k].Piso) ) {
+
+                            if (JSON.stringify(piso) === JSON.stringify(data.datos[k]) ) {
+
+                                console.log('Ya esta marcado este piso');
                                 existPiso = true;
                             }
                         });
 
                         if (!existPiso){
 
-                            console.log('esta persona aun no tenia piso asignado');
+                            console.log('Nuevo piso a marcar');
                             pisos.push(data.datos[k]);
                         }
 
@@ -219,13 +220,14 @@ $(document).ready(function(){
             if (!streaming) {
                 // clean and stop.
 
-                console.log('clean');
+                //console.log('clean');
                 src.delete();
                 dst.delete();
                 gray.delete();
                 faces.delete();
                 faceImages = [];
                 contador = 0;
+                accionHecha = false;
                 $('.left').css('filter', 'contrast(25%)');
                 return;
 
@@ -252,6 +254,10 @@ $(document).ready(function(){
                     //si el vector de caras contiene alguna la enviamos al back
                     if(faces.size() > 0){
                         console.log('hay una cara!!!');
+                        if(!accionHecha){
+                            startAction();
+                            accionHecha = true;
+                        };
 
                         //console.log(base64);
 
