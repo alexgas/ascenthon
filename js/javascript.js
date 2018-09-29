@@ -45,6 +45,11 @@ $(document).ready(function(){
         processVideo();
     }
     $("#button-hide-door").click(function(){
+        var accionHecha = false;
+        if(!accionHecha){
+            startAction();
+            accionHecha = true;
+        };
         hideDoor();
     });
     $("#button-show-door").click(function(){
@@ -69,10 +74,8 @@ $(document).ready(function(){
         startAction(pisos);
     });
 
-    function startAction(pisos) {
-        pisos.forEach(function (row) {
-            $("#bt"+row.Piso).append('<img class="parpadea" style="position: absolute" src="img/Num' + row.Piso + '%20Apagado.png">')
-        });
+    function startAction() {
+
         startCounter(4);
         setTimeout(function(){
             if(!abortarAccion){
@@ -82,7 +85,7 @@ $(document).ready(function(){
                     $("#bt"+row.Piso).find('.parpadea').remove();
                 });
             }
-        }, 3500);
+        }, 4000);
     }
 
     function startCounter(counter){
@@ -132,7 +135,7 @@ $(document).ready(function(){
                 pisoActual = piso;
                 setTimeout(function(){
                     showDoor();
-                }, 2000)
+                }, 4000)
             }, 4000);
 
            $(".flat-number")[0].innerHTML = piso;
@@ -157,10 +160,16 @@ $(document).ready(function(){
             success: function (data) {
                 console.log(data);
                 if(data.datos && data.datos[0].Piso !== pisoActual){
-                    startAction(data.datos);
+                    pisos = data.datos;
+
+                    pisos.forEach(function (row) {
+                        $("#bt"+row.Piso).append('<img class="parpadea" style="position: absolute" src="img/Num' + row.Piso + '%20Apagado.png">')
+                    });
+
                 }
             },
         });
+
     }
 
     function guidGenerator() {
@@ -222,6 +231,7 @@ $(document).ready(function(){
                     //si el vector de caras contiene alguna la enviamos al back
                     if(faces.size() > 0){
                         console.log('hay una cara!!!');
+
                         //console.log(base64);
 
                         // dibujar rectangulos en caras.
