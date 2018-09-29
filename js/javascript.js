@@ -165,9 +165,9 @@ $(document).ready(function(){
 
                         let existPiso = false;
 
-                        pisos.forEach(function (piso) {
+                        pisos.forEach(function (row) {
 
-                            if (JSON.stringify(piso) === JSON.stringify(data.datos[k]) ) {
+                            if (row.Piso && JSON.stringify(row) === JSON.stringify(data.datos[k]) ) {
 
                                 console.log('Ya esta marcado este piso');
                                 existPiso = true;
