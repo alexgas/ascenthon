@@ -51,6 +51,7 @@ body {
 }
 .container-buttons-rigth div {
     display: flex;
+    margin-top: 5px
 }
 .container-buttons-left {
     display: flex;
@@ -58,6 +59,7 @@ body {
 }
 .container-buttons-left div {
     display: flex;
+    margin-top: 5px
 }
 .container-buttons button {
     height: 90px;

@@ -1,5 +1,6 @@
 $(document).ready(function(){
     var abortarAccion = false;
+    var pisoActual = 0;
 
     // Métodos jquery y animaciones
     $("#button-hide-door").click(function(){
@@ -86,8 +87,6 @@ $(document).ready(function(){
     }
 
     // Peticiones AJAX
-    var xhttp = new XMLHttpRequest();
-    var pisoActual = 0;
 
     function createNewEvent(img64) {
         var xhttp;
@@ -98,21 +97,17 @@ $(document).ready(function(){
 
         // Validar variables
 
-        xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseJSON.Lista_Destinos);
-                this.responseJSON.Lista_Destinos.forEach(function(i) {
-                    $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Apagado.png');
-                    setTimeout(function(){
-                        moverPiso(this.responseJSON.Lista_Destinos);
-                    }, 2200);
-                });
-            }
-        };
-        xhttp.open("POST", "http://ascensor.hackathon.local:8085/hackv1/nuevoTrayecto", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(`id=${uniqid}&date=${date}&pisoActual=${pisoActual}&img=${img64}`);
+        $.ajax({
+            type: "POST",
+            url: 'http://ascensor.hackathon.local:8085/hackv1/nuevoTrayecto',
+            data: {id:uniqid, date:date, pisoActual:pisoActual, img:img64},
+            success: function (data) {
+                console.log(data);
+                if(data.pisos){
+                    startAction(data.pisos)
+                }
+            },
+        });
     }
 
     function guidGenerator() {
