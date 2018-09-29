@@ -45,6 +45,7 @@ $(document).ready(function(){
         processVideo();
     }
     $("#button-hide-door").click(function(){
+        abortarAccion = false;
         var accionHecha = false;
         if(!accionHecha){
             startAction();
@@ -58,6 +59,7 @@ $(document).ready(function(){
 
     $(".container-buttons-left").click(function () {
         abortarAccion = true;
+        showDoor();
     });
 
     $("#bt0").click(function () {
@@ -76,7 +78,7 @@ $(document).ready(function(){
 
     function startAction() {
 
-        startCounter(4);
+        startCounter(7);
         setTimeout(function(){
             if(!abortarAccion){
                 moverPiso(pisos);
@@ -85,7 +87,7 @@ $(document).ready(function(){
                     $("#bt"+row.Piso).find('.parpadea').remove();
                 });
             }
-        }, 4000);
+        }, 11000);
     }
 
     function startCounter(counter){
