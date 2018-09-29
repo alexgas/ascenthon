@@ -1,3 +1,5 @@
+let $ = jQuery.noConflict();
+
 $( function (){
 
     let streaming = false;
@@ -6,6 +8,8 @@ $( function (){
     let classifier = new cv.CascadeClassifier();
     let faceCascadeFile = 'haarcascade_frontalface_default.xml';
     let contador = 0;
+    let faceImages = [];
+
 
     utils.createFileFromUrl(faceCascadeFile, faceCascadeFile, () => {
         classifier.load(faceCascadeFile); // in the callback, load the cascade from file
@@ -22,10 +26,10 @@ $( function (){
             console.log("An error occured! " + err);
         });
 
-        let faceImages = [];
 
 
     function processVideo() {
+
 
             let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
             let dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
@@ -39,6 +43,8 @@ $( function (){
             try {
                 if (!streaming) {
                     // clean and stop.
+
+                    console.log('clean');
                     src.delete();
                     dst.delete();
                     gray.delete();
@@ -48,6 +54,8 @@ $( function (){
                     $('.left').css('filter', 'contrast(25%)');
                     return;
                 } else {
+
+                    $('.left').css('filter', 'contrast(100%)');
                     contador++;
 
                     if (contador <= 5){
@@ -93,11 +101,10 @@ $( function (){
                                     let cara = document.getElementById('canvasOutput2');
                                     let base64 = cara.toDataURL();
 
-                                    let date = this.Date.now();
-                                    let eventId = guidGenerator();
-
+                                    //let date = this.Date.now();
+                                    //let eventId = guidGenerator();
                                     //llamada a metodo que envia imagen al servidor
-                                    createNewEvent(base64, eventId, date);
+                                    //createNewEvent(base64, eventId, date);
 
                                     faceImages.push(base64);
                                     // source.delete();
@@ -105,18 +112,17 @@ $( function (){
                                 }
 
                             }
-
-                            cv.imshow('canvasOutput', dst);
-                            cv.imshow('canvasOutputNoFaces', dst);
                         }
+                        cv.imshow('canvasOutput', dst);
+                        cv.imshow('canvasOutputNoFaces', dst);
                         //let delay = 1000 / FPS - (Date.now() - begin);
-                        setTimeout(processVideo, 500);
 
                     }else{
                         console.log('numero de caras: ' + faceImages.length);
                         streaming = false;
+                        contador = 0;
                     }
-
+                    setTimeout(processVideo, 500);
                 }
             } catch (err) {
                 console.dir('Error: ' + err);
@@ -124,30 +130,11 @@ $( function (){
 
     };
 
-
+    //Listener para el botón del ascensor
     $('#button-hide-door').on('click', () => {
-        streaming = !streaming;
+        streaming = true;
         processVideo();
 
     });
-
-
-    $('#buttonShowImages').on('click', () => {
-
-       for (let i in faceImages){
-           setTimeout(function(){
-
-               console.log('mostrando ' + i);
-
-               cv.imshow('canvasOutput2', faceImages[i]);
-
-           }, i*1000);
-
-       }
-
-    });
-
-
-
 
 });
