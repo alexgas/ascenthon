@@ -82,7 +82,7 @@ $(document).ready(function(){
         startCounter(7);
         setTimeout(function(){
             if(!abortarAccion){
-                moverPiso(pisos);
+                moverPiso();
             }else{
                 pisos.forEach(function (row) {
                     $("#bt"+row.Piso).find('.parpadea').remove();
@@ -105,11 +105,11 @@ $(document).ready(function(){
         }
     }
 
-    function moverPiso(pisos) {
+    function moverPiso() {
 
         if (pisos.length > 0){
             pisos.forEach(function (row) {
-                setDelay(row.Piso, pisos.indexOf(row.Piso))
+                setDelay(row.Piso, pisos.indexOf(row))
             });
         }
     };
@@ -124,10 +124,10 @@ $(document).ready(function(){
                 $(".arrow-up").hide();
                 $(".arrow-down").addClass('parpadea');
             }
-             console.log('piso destino: ' + piso);
+            console.log('piso destino: ' + piso);
 
-
-            $("#bt"+piso).find('.parpadea').remove();
+            
+             $("#bt"+piso).find('.parpadea').remove();
             setTimeout(function () {
                 $('#audio-piso').attr('src', 'audio/Piso_'+piso +'.ogg').get(0).play();
                 
