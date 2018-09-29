@@ -2,7 +2,7 @@ $(document).ready(function(){
     let abortarAccion = false;
     let pisoActual = 0;
 
-    let pisos = {};
+    let pisos = [];
 
     let streaming = false;
     let video = document.getElementById('videoInput');
@@ -105,7 +105,6 @@ $(document).ready(function(){
     function moverPiso(pisos) {
 
         if (pisos.length > 0){
-
             pisos.forEach(function (row) {
                 setDelay(row.Piso, pisos.indexOf(row.Piso))
             });
@@ -144,8 +143,6 @@ $(document).ready(function(){
 
            $(".flat-number")[0].innerHTML = piso;
 
-
-
         }, i*10000);
     }
 
@@ -162,9 +159,28 @@ $(document).ready(function(){
             url: 'http://10.1.6.45:8085/hackv1/nuevoTrayecto',
             data: {id:uniqueid, date:date, pisoActual:pisoActual, img:img64},
             success: function (data) {
-                console.log(data);
-                if(data.datos && data.datos[0].Piso !== pisoActual){
-                    pisos = data.datos;
+                //console.log(data);
+                if(data.datos && data.datos[0].Piso && data.datos[0].Piso !== pisoActual){
+
+                    let existPiso = false;
+
+                    for (let k in data.datos){
+
+                        pisos.forEach(function (piso) {
+                            if (JSON.stringify(pisos[piso]) === JSON.stringify(data.datos[k].Piso) ) {
+                                existPiso = true;
+                            }
+                        });
+
+                        if (!existPiso){
+
+                            console.log('esta persona aun no tenia piso asignado');
+                            pisos.push(data.datos[k]);
+                        }
+
+                    }
+
+                    console.log('Pisos: '  + JSON.stringify(pisos));
 
                     pisos.forEach(function (row) {
                         $("#bt"+row.Piso).append('<img class="parpadea" style="position: absolute" src="img/Num' + row.Piso + '%20Apagado.png">')
