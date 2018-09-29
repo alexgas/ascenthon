@@ -28,9 +28,9 @@ $(document).ready(function(){
     let faceImages = [];
 
 
-
     // Métodos jquery y animaciones
     function hideDoor(){
+
         $('#audio-open').get(0).play();
         setTimeout(function(){
             $(".door").hide();
@@ -44,7 +44,12 @@ $(document).ready(function(){
         $(".door").removeClass('door-right-to-left').addClass("door-left-to-rigth");
         $(".door").show();
         streaming = false;
-        processVideo();
+
+
+        if (viajesRealizados !== viajes){
+            processVideo();
+        }
+
     }
     $("#button-hide-door").click(function(){
 
@@ -80,10 +85,21 @@ $(document).ready(function(){
     function startAction() {
 
         startCounter(7);
-        setTimeout(function(){
-            if(!abortarAccion){
+        setTimeout(function() {
+
+            viajesRealizados++;
+
+            console.log('Viajes totales: ' + viajes);
+            console.log('Viajes realizados: ' + viajesRealizados);
+            if (!abortarAccion && viajesRealizados <= viajes) {
                 moverPiso(pisos);
+            } else if (!abortarAccion) {
+                viajesRealizados = 0;
+                pisos.forEach(function (row) {
+                    $("#bt"+row.Piso).find('.parpadea').remove();
+                });
             }else{
+
                 pisos.forEach(function (row) {
                     $("#bt"+row.Piso).find('.parpadea').remove();
                 });
@@ -201,6 +217,8 @@ $(document).ready(function(){
                     });
 
                 }
+
+                viajes = pisos.length;
             },
         });
 
