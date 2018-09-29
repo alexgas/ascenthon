@@ -58,12 +58,16 @@ $( function (){
                     let imagen = document.getElementById('canvasOutputNoFaces');
                     let base64 = imagen.toDataURL();
 
-                    faceImages.push(base64);
-
                     // detectar caras.
                     classifier.detectMultiScale(gray, faces, 1.1, 3, 0);
 
+                    //si el vector de caras contiene alguna la enviamos al back
+                    if(faces.size() > 0){
+                        console.log('hay una cara!!!');
 
+                        console.log(base64);
+                       // createNewEvent(base64);
+                    }
 
                     // dibujar rectangulos en caras.
                     for (let i = 0; i < faces.size(); ++i) {
@@ -74,7 +78,6 @@ $( function (){
                     }
                     cv.imshow('canvasOutput', dst);
 
-                    // schedule the next one.
                     //let delay = 1000 / FPS - (Date.now() - begin);
                     setTimeout(processVideo, 100);
                 }
@@ -88,6 +91,7 @@ $( function (){
     $('#button-hide-door').on('click', () => {
         streaming = !streaming;
         console.log(faceImages.length);
+
         processVideo();
 
     });
