@@ -11,7 +11,7 @@ body {
     flex-direction: row;
 }
 .counter-container {
-    font-size: 4rem;
+    font-size: 3rem;
 }
 .right {
     height: 80%;
@@ -48,6 +48,10 @@ body {
     height: 70%;
     background-image: url("../img/texture.jpg");
 }
+.container-buttons img {
+    width: 80px;
+    height: 80px;
+}    
 .container-buttons-rigth {
     display: flex;
     flex-direction: column;
@@ -68,7 +72,7 @@ body {
     height: 90px;
     width: 90px;
     margin-bottom: 10px;
-    font-size: 3rem;
+    font-size: 2rem;
     border-radius: 50%;
 }
 .red{
@@ -108,7 +112,7 @@ body {
     background: black;
     border: 6px solid greenyellow;
     -webkit-text-fill-color: greenyellow;
-    font-size: 9rem;
+    font-size: 5rem;
     display: flex;
     justify-content: center;
     position: absolute;
