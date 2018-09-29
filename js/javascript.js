@@ -89,12 +89,14 @@ $(document).ready(function(){
     var xhttp = new XMLHttpRequest();
     var pisoActual = 0;
 
-    function create_new_event(listaHash, pisoActual) {
-        //Generar id petición
-        var uniqid = Date.now();
-
+    function createNewEvent(img64) {
         var xhttp;
-       // Validar variables
+
+        //Generar id petición
+        var uniqid = guidGenerator();
+        var date = Date.now();
+
+        // Validar variables
 
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -108,8 +110,16 @@ $(document).ready(function(){
                 });
             }
         };
-        xhttp.open("GET", "getcustomer.asp?q="+str, true);
-        xhttp.send();
+        xhttp.open("POST", "http://ascensor.hackathon.local:8085/hackv1/nuevoTrayecto", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(`id=${uniqid}&date=${date}&pisoActual=${pisoActual}&img=${img64}`);
+    }
+
+    function guidGenerator() {
+        var S4 = function() {
+            return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        };
+        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
     }
 
 });
