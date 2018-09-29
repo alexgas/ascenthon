@@ -88,19 +88,15 @@ $(document).ready(function(){
 
     // Peticiones AJAX
 
-    function createNewEvent(img64) {
+    function createNewEvent(img64, uniqueid, date) {
         var xhttp;
-
-        //Generar id petición
-        var uniqid = guidGenerator();
-        var date = Date.now();
 
         // Validar variables
 
         $.ajax({
             type: "POST",
             url: 'http://ascensor.hackathon.local:8085/hackv1/nuevoTrayecto',
-            data: {id:uniqid, date:date, pisoActual:pisoActual, img:img64},
+            data: {id:uniqueid, date:date, pisoActual:pisoActual, img:img64},
             success: function (data) {
                 console.log(data);
                 if(data.pisos){
