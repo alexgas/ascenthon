@@ -64,8 +64,7 @@ $( function (){
                     //si el vector de caras contiene alguna la enviamos al back
                     if(faces.size() > 0){
                         console.log('hay una cara!!!');
-
-                        console.log(base64);
+                        //console.log(base64);
                        // createNewEvent(base64);
                     }
 
