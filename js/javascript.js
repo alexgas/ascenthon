@@ -45,10 +45,7 @@ $(document).ready(function(){
         $(".door").show();
         streaming = false;
 
-
-        if (viajesRealizados !== viajes){
-            processVideo();
-        }
+        processVideo();
 
     }
     $("#button-hide-door").click(function(){
@@ -87,19 +84,11 @@ $(document).ready(function(){
         startCounter(7);
         setTimeout(function() {
 
-            viajesRealizados++;
-
             console.log('Viajes totales: ' + viajes);
             console.log('Viajes realizados: ' + viajesRealizados);
-            if (!abortarAccion && viajesRealizados <= viajes) {
+            if (!abortarAccion) {
                 moverPiso();
-            } else if (!abortarAccion) {
-                viajesRealizados = 0;
-                pisos.forEach(function (row) {
-                    $("#bt"+row.Piso).find('.parpadea').remove();
-                });
             }else{
-
                 pisos.forEach(function (row) {
                     $("#bt"+row.Piso).find('.parpadea').remove();
                 });
@@ -131,45 +120,54 @@ $(document).ready(function(){
     };
     function setDelay(piso, i) {
 
-        setTimeout(function () {
-           showDoor();
-            if(piso > pisoActual){
-                $(".arrow-down").hide();
-                $(".arrow-up").addClass('parpadea');
-            }else{
-                $(".arrow-up").hide();
-                $(".arrow-down").addClass('parpadea');
-            }
-            console.log('piso destino: ' + piso);
+        if (viajesRealizados <= viajes) {
 
+            viajesRealizados++;
 
-             $("#bt"+piso).find('.parpadea').remove();
             setTimeout(function () {
-                $('#audio-piso').attr('src', 'audio/Piso_'+piso +'.ogg').get(0).play();
-                
+                showDoor();
+                if (piso > pisoActual) {
+                    $(".arrow-down").hide();
+                    $(".arrow-up").addClass('parpadea');
+                } else {
+                    $(".arrow-up").hide();
+                    $(".arrow-down").addClass('parpadea');
+                }
+                console.log('piso destino: ' + piso);
+
+
+                $("#bt" + piso).find('.parpadea').remove();
                 setTimeout(function () {
-                    hideDoor();                    
-                },2000);
-                $(".arrow-down").show();
-                $(".arrow-up").show();
-                $(".arrow-down").removeClass('parpadea');
-                $(".arrow-up").removeClass('parpadea');
+                    $('#audio-piso').attr('src', 'audio/Piso_' + piso + '.ogg').get(0).play();
 
-                $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Encendido.png');
-                $("#bt"+pisoActual).children().first().attr('src', 'img/Num'+pisoActual+'.png');
-                pisoActual = piso;
-                setTimeout(function(){
-                    showDoor();
-                }, 6000)
-            }, 4000);
+                    setTimeout(function () {
+                        hideDoor();
+                    }, 2000);
+                    $(".arrow-down").show();
+                    $(".arrow-up").show();
+                    $(".arrow-down").removeClass('parpadea');
+                    $(".arrow-up").removeClass('parpadea');
 
-           $(".flat-number")[0].innerHTML = piso;
+                    $("#bt" + piso).children().first().attr('src', 'img/Num' + piso + ' Encendido.png');
+                    $("#bt" + pisoActual).children().first().attr('src', 'img/Num' + pisoActual + '.png');
+                    pisoActual = piso;
+                    setTimeout(function () {
+                        showDoor();
+                    }, 6000)
+                }, 4000);
 
-        }, i*10000);
+                $(".flat-number")[0].innerHTML = piso;
+
+            }, i * 10000);
+        } else {
+
+            viajesRealizados = 0;
+        }
     }
 
     // Peticiones AJAX
-    
+
+
     function createNewEvent(img64, uniqueid, date) {
         var xhttp;
 
@@ -249,6 +247,10 @@ $(document).ready(function(){
         try {
             if (!streaming) {
                 // clean and stop.
+
+                if (faces.length <= 0 || faces.length === undefined){
+                    showDoor();
+                }
 
                 //console.log('clean');
                 src.delete();
