@@ -70,19 +70,149 @@ $(document).ready(function(){
         showDoor();
     });
 
-    $(".container-buttons-left").click(function () {
+   /* $(".container-buttons-left").click(function () {
         // ABORTAR
         pisos = [];
         abortarAccion = true;
         showDoor();
     });
+    */
 
     $("#bt0").click(function () {
         streaming = false; 
         pisos.forEach(function (row) {
             $("#bt"+row.Piso).find('.parpadea').remove();
         });
+
+        //$("#bt0").children().first().attr('src', 'img/Num'+0+' Encendido.png');
+        
+
         pisos = [{Piso:0}];
+
+        abortarAccion = false;
+        //startAction(pisos);
+    });
+
+    $("#bt1").click(function () {
+        streaming = false; 
+        pisos.forEach(function (row) {
+            $("#bt"+row.Piso).find('.parpadea').remove();
+        });
+
+        //$("#bt1").children().first().attr('src', 'img/Num'+1+' Encendido.png');
+        
+        pisos = [{Piso:1}];
+       
+
+        abortarAccion = false;
+        //startAction(pisos);
+    });
+
+    $("#bt2").click(function () {
+        streaming = false; 
+        pisos.forEach(function (row) {
+            $("#bt"+row.Piso).find('.parpadea').remove();
+        });
+
+        //$("#bt2").children().first().attr('src', 'img/Num'+2+' Encendido.png');
+        
+        pisos = [{Piso:2}];
+
+       
+
+        abortarAccion = false;
+        //startAction(pisos);
+    });
+
+    $("#bt3").click(function () {
+        streaming = false; 
+        pisos.forEach(function (row) {
+            $("#bt"+row.Piso).find('.parpadea').remove();
+        });
+
+        //$("#bt3").children().first().attr('src', 'img/Num'+3+' Encendido.png');
+        
+        pisos = [{Piso:3}];
+
+       
+
+        abortarAccion = false;
+        //startAction(pisos);
+    });
+
+    $("#bt4").click(function () {
+        streaming = false; 
+        pisos.forEach(function (row) {
+            $("#bt"+row.Piso).find('.parpadea').remove();
+        });
+
+        //$("#bt4").children().first().attr('src', 'img/Num'+4+' Encendido.png');
+        
+        pisos = [{Piso:4}];
+
+       
+
+        abortarAccion = false;
+        //startAction(pisos);
+    });
+
+    $("#bt5").click(function () {
+        streaming = false; 
+        pisos.forEach(function (row) {
+            $("#bt"+row.Piso).find('.parpadea').remove();
+        });
+
+        //$("#bt5").children().first().attr('src', 'img/Num'+5+' Encendido.png');
+        
+        pisos = [{Piso:5}];
+
+       
+
+        abortarAccion = false;
+        //startAction(pisos);
+    });
+
+    $("#bt6").click(function () {
+        streaming = false; 
+        pisos.forEach(function (row) {
+            $("#bt"+row.Piso).find('.parpadea').remove();
+        });
+
+        //$("#bt6").children().first().attr('src', 'img/Num'+6+' Encendido.png');
+        
+        pisos = [{Piso:6}];
+
+       
+
+        abortarAccion = false;
+        //startAction(pisos);
+    });
+
+    $("#bt-1").click(function () {
+        streaming = false; 
+        pisos.forEach(function (row) {
+            $("#bt"+row.Piso).find('.parpadea').remove();
+        });
+
+       // $("#bt-1").children().first().attr('src', 'img/Num-'+1+' Encendido.png');
+        
+        pisos = [{Piso:-1}];
+
+       
+
+        abortarAccion = false;
+        //startAction(pisos);
+    });
+
+    $("#bt-2").click(function () {
+        streaming = false; 
+        pisos.forEach(function (row) {
+            $("#bt"+row.Piso).find('.parpadea').remove();
+        });
+
+       // $("#bt-2").children().first().attr('src', 'img/Num-2'+1+' Encendido.png');
+        
+        pisos = [{Piso:-2}];
 
        
 
