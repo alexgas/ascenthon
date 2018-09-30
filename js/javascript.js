@@ -264,6 +264,8 @@ $(document).ready(function(){
 
         console.log('viajesrealizados: ' + viajesRealizados);
         console.log('viajes: ' + viajes);
+
+        
    
         trayecto = true;
 
@@ -312,6 +314,7 @@ $(document).ready(function(){
         } else {
             viajesRealizados = 0;
             streaming = false;
+
         }
     }
 
@@ -336,19 +339,23 @@ $(document).ready(function(){
 
                         let existPiso = false;
 
-                        pisos.forEach(function (row) {
+                        if(data.datos[k].Piso){ //integridad si cara desconocida
 
-                            if (row.Piso && JSON.stringify(row) === JSON.stringify(data.datos[k]) ) {
 
-                               // console.log('Ya esta marcado este piso');
-                                existPiso = true;
+                            pisos.forEach(function (row) {
+
+                                if (row.Piso && JSON.stringify(row) === JSON.stringify(data.datos[k]) ) {
+
+                                // console.log('Ya esta marcado este piso');
+                                    existPiso = true;
+                                }
+                            });
+
+                            if (!existPiso){
+
+                                //console.log('Nuevo piso a marcar');
+                                pisos.push(data.datos[k]);
                             }
-                        });
-
-                        if (!existPiso){
-
-                            //console.log('Nuevo piso a marcar');
-                            pisos.push(data.datos[k]);
                         }
 
                     }
@@ -468,7 +475,17 @@ $(document).ready(function(){
                         let eventId = guidGenerator();
                         //llamada a metodo que envia imagen al servidor
                         createNewEvent(base64, eventId, date);
+
+                        
+
                     }
+
+                    if (contador >= 5 && pisos.length === 0){
+                        
+                                    console.log('no hay nadie, cierra');
+                                    showDoor();
+                                }
+
 
                     
                     //let delay = 1000 / FPS - (Date.now() - begin);
