@@ -3,7 +3,7 @@ $(document).ready(function(){
     let pisoActual = 0;
     let pisos = [];
     let accionHecha = false;
-    let viajes = 0;
+    let viajes = 1;
     let viajesRealizados = 0;
 
     let streaming = false;
@@ -26,6 +26,7 @@ $(document).ready(function(){
 
     let contador = 0;
     let faceImages = [];
+    let trayecto = false;
 
 
 
@@ -37,14 +38,28 @@ $(document).ready(function(){
         }, 2200);
         $(".door").removeClass("door-left-to-rigth").addClass('door-right-to-left');
         streaming = true;
-        processVideo();
+
+        if(!trayecto){
+
+            processVideo();
+            processVideo2();
+        
+        }
+
+
     };
     function showDoor() {
         $('#audio-close').get(0).play();
         $(".door").removeClass('door-right-to-left').addClass("door-left-to-rigth");
         $(".door").show();
         streaming = false;
-        processVideo();
+        if(!trayecto){
+            
+                     processVideo();
+                     processVideo2();
+                    
+         }
+        
     }
     $("#button-hide-door").click(function(){
 
@@ -63,8 +78,9 @@ $(document).ready(function(){
     });
 
     $("#bt0").click(function () {
-        streaming = false;
+        streaming = false; 
         pisos = [{Piso:0}];
+
         abortarAccion = false;
         //startAction(pisos);
     });
@@ -101,48 +117,67 @@ $(document).ready(function(){
     function moverPiso() {
 
         if (pisos.length > 0){
-            pisos.forEach(function (row) {
-                setDelay(row.Piso, pisos.indexOf(row))
-            });
+
+            for (let i in pisos){
+
+                setDelay(pisos[i].Piso, pisos.indexOf(pisos[i]))
+            }
+          
         }
     };
     function setDelay(piso, i) {
 
-        setTimeout(function () {
-           showDoor();
-            if(piso > pisoActual){
-                $(".arrow-down").hide();
-                $(".arrow-up").addClass('parpadea');
-            }else{
-                $(".arrow-up").hide();
-                $(".arrow-down").addClass('parpadea');
-            }
-            console.log('piso destino: ' + piso);
+        console.log('viajesrealizados: ' + viajesRealizados);
+        console.log('viajes: ' + viajes);
+   
+        trayecto = true;
 
-            
-             $("#bt"+piso).find('.parpadea').remove();
+            if (viajesRealizados < viajes){
             setTimeout(function () {
-                $('#audio-piso').attr('src', 'audio/Piso_'+piso +'.ogg').get(0).play();
+                $("#counter")[0].innerHTML = '';
                 
+            showDoor();
+                if(piso > pisoActual){
+                    $(".arrow-down").hide();
+                    $(".arrow-up").addClass('parpadea');
+                }else{
+                    $(".arrow-up").hide();
+                    $(".arrow-down").addClass('parpadea');
+                }
+                console.log('piso destino: ' + piso);
+
+                
+                $("#bt"+piso).find('.parpadea').remove();
                 setTimeout(function () {
-                    hideDoor();                    
-                },2000);
-                $(".arrow-down").show();
-                $(".arrow-up").show();
-                $(".arrow-down").removeClass('parpadea');
-                $(".arrow-up").removeClass('parpadea');
+                    $('#audio-piso').attr('src', 'audio/Piso_'+piso +'.ogg').get(0).play();
+                    
+                    setTimeout(function () {
+                        hideDoor();                    
+                    },2000);
+                    $(".arrow-down").show();
+                    $(".arrow-up").show();
+                    $(".arrow-down").removeClass('parpadea');
+                    $(".arrow-up").removeClass('parpadea');
 
-                $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Encendido.png');
-                $("#bt"+pisoActual).children().first().attr('src', 'img/Num'+pisoActual+'.png');
-                pisoActual = piso;
-                setTimeout(function(){
-                    showDoor();
-                }, 6000)
-            }, 4000);
+                    $("#bt"+piso).children().first().attr('src', 'img/Num'+piso+' Encendido.png');
+                    $("#bt"+pisoActual).children().first().attr('src', 'img/Num'+pisoActual+'.png');
+                    pisoActual = piso;
+                    
+                    setTimeout(function(){
+                        showDoor();
+                        viajesRealizados++;
+                    }, 6000)
 
-           $(".flat-number")[0].innerHTML = piso;
+                }, 4000);
 
-        }, i*10000);
+            $(".flat-number")[0].innerHTML = piso;
+           
+
+            }, i*10000);
+        } else {
+            viajesRealizados = 0;
+            streaming = false;
+        }
     }
 
     // Peticiones AJAX
@@ -194,6 +229,7 @@ $(document).ready(function(){
                     });
 
                 }
+                viajes = pisos.length;
             },
         });
 
@@ -222,7 +258,7 @@ $(document).ready(function(){
 
 
         try {
-            if (!streaming) {
+            if (!streaming || viajesRealizados >= viajes) {
                 // clean and stop.
 
                 //console.log('clean');
@@ -233,12 +269,12 @@ $(document).ready(function(){
                 faceImages = [];
                 contador = 0;
                 accionHecha = false;
-                $('.left').css('filter', 'contrast(25%)');
+                $('#canvasOutput').hide();
                 return;
 
             } else {
 
-                $('.left').css('filter', 'contrast(100%)');
+                //$('#canvasOutput').show();                
                 contador++;
 
                 if (contador <= 5){
@@ -299,7 +335,7 @@ $(document).ready(function(){
                         createNewEvent(base64, eventId, date);
                     }
 
-                    cv.imshow('canvasOutput', dst);
+                    
                     //let delay = 1000 / FPS - (Date.now() - begin);
 
                 }else{
@@ -314,6 +350,96 @@ $(document).ready(function(){
         }
 
     };
+
+
+    function processVideo2() {
+        
+        
+                let src2 = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+                let dst2 = new cv.Mat(video.height, video.width, cv.CV_8UC1);
+                let cap2 = new cv.VideoCapture(video);
+                let gray2 = new cv.Mat();
+                let faces2 = new cv.RectVector();
+        
+                const FPS = 30;
+        
+        
+                try {
+                    if (!streaming || viajesRealizados >= viajes) {
+                        // clean and stop.
+        
+                        //console.log('clean');
+                        src2.delete();
+                        dst2.delete();
+                        gray2.delete();
+                        faces2.delete();
+                        faceImages = [];
+                        contador = 0;
+                        accionHecha = false;
+                        $('#canvasOutputFast').hide();
+                        return;
+        
+                    } else {
+        
+                        $('#canvasOutputFast').show();                
+                        
+        
+                            let begin = Date.now();
+        
+                            cap2.read(src2);
+                            src2.copyTo(dst2);
+                            cv.cvtColor(dst2, gray2, cv.COLOR_RGBA2GRAY, 0);
+        
+        
+                            // detectar caras.
+                            classifier.detectMultiScale(gray2, faces2, 1.1, 3, 0);
+        
+                            //si el vector de caras contiene alguna la enviamos al back
+                           
+                               // console.log('hay una cara!!!');
+                                
+                                //console.log(base64);
+        
+                                // dibujar rectangulos en caras.
+                                for (let i = 0; i < faces2.size(); ++i) {
+                                    let face = faces2.get(i);
+                                    let point1 = new cv.Point(face.x, face.y);
+                                    let point2 = new cv.Point(face.x + face.width, face.y + face.height);
+                                    cv.rectangle(dst2, point1, point2, [255, 0, 0, 255]);
+        
+                                    /* crop face
+                                    let source = cv.imread('canvasOutputNoFaces');
+                                    let dest = new cv.Mat();
+                                    let rect = new cv.Rect(face.x, face.y, face.width, face.height);
+                                    if (0 <= rect.x
+                                        && 0 <= rect.width
+                                        && rect.x + rect.width <= source.cols
+                                        && 0 <= rect.y
+                                        && 0 <= rect.height
+                                        && rect.y + rect.height <= source.rows) {
+                                        // box within the image plane
+                                        dest = source.roi(rect);
+                                        cv.imshow('canvasOutput2', dest);
+                                        faceImages.push(base64);
+        
+                                    */
+        
+                                }
+        
+                            
+                            
+        
+                            cv.imshow('canvasOutputFast', dst2);
+                            let delay = 1000 / FPS - (Date.now() - begin);
+        
+                    
+                        setTimeout(processVideo2, delay);
+                    }
+                } catch (err) {
+                    console.dir('Error: ' + err);
+                }
+        
+            };
 
 
 

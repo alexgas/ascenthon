@@ -157,6 +157,7 @@ body {
 }
 
 #canvasOutput {
+    visibility: hidden;
     width: 95%;
     height: 90%;
 }
