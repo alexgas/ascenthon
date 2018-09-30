@@ -28,9 +28,9 @@ $(document).ready(function(){
     let faceImages = [];
 
 
+
     // Métodos jquery y animaciones
     function hideDoor(){
-
         $('#audio-open').get(0).play();
         setTimeout(function(){
             $(".door").hide();
@@ -92,7 +92,7 @@ $(document).ready(function(){
             console.log('Viajes totales: ' + viajes);
             console.log('Viajes realizados: ' + viajesRealizados);
             if (!abortarAccion && viajesRealizados <= viajes) {
-                moverPiso(pisos);
+                moverPiso();
             } else if (!abortarAccion) {
                 viajesRealizados = 0;
                 pisos.forEach(function (row) {
@@ -121,11 +121,11 @@ $(document).ready(function(){
         }
     }
 
-    function moverPiso(pisos) {
+    function moverPiso() {
 
         if (pisos.length > 0){
             pisos.forEach(function (row) {
-                setDelay(row.Piso, pisos.indexOf(row.Piso))
+                setDelay(row.Piso, pisos.indexOf(row))
             });
         }
     };
@@ -140,10 +140,10 @@ $(document).ready(function(){
                 $(".arrow-up").hide();
                 $(".arrow-down").addClass('parpadea');
             }
-             console.log('piso destino: ' + piso);
+            console.log('piso destino: ' + piso);
 
 
-            $("#bt"+piso).find('.parpadea').remove();
+             $("#bt"+piso).find('.parpadea').remove();
             setTimeout(function () {
                 $('#audio-piso').attr('src', 'audio/Piso_'+piso +'.ogg').get(0).play();
                 
