@@ -79,7 +79,12 @@ $(document).ready(function(){
 
     $("#bt0").click(function () {
         streaming = false; 
+        pisos.forEach(function (row) {
+            $("#bt"+row.Piso).find('.parpadea').remove();
+        });
         pisos = [{Piso:0}];
+
+       
 
         abortarAccion = false;
         //startAction(pisos);
